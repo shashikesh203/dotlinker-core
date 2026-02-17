@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import config from './config';
+import connectToMongoDB from './lib/mongoose';
 
 
 const app = express();
@@ -11,6 +12,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+connectToMongoDB()
 
 
 app.listen(config.commonConfig.port, () => {
