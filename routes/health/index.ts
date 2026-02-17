@@ -1,9 +1,8 @@
 import express from "express";
+import healthController from "../../src/controller/health/healthController";
 
 const healthRoute = express.Router();
 
-healthRoute.get("/health", (_req, res) => {
-  res.json({ message: "Health check passed ✅", timeStamp: new Date().toISOString() });
-});
+healthRoute.get("/health", healthController.getHealth);
 
 export default healthRoute;
