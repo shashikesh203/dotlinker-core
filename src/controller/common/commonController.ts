@@ -8,6 +8,8 @@ import bcryptjs from "bcryptjs";
 import config from "../../config";
 import PatientModel from "../../model/patientModel";
 import { ExtendedRequest } from "../../utils/interface/extendedRequest.Interface";
+import { Query } from "mongoose";
+import { spec } from "node:test/reporters";
 
 class CommonController {
   getDoctorProfile: RequestHandler = async (
@@ -71,7 +73,8 @@ class CommonController {
       )
     );
   }
-};
+  };
+
 }
 
 export default new CommonController();
