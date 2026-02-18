@@ -47,7 +47,7 @@ class AuthController {
       }
 
       const payload = {
-        userId: doctorDetails._id.toString(),
+        id: doctorDetails._id.toString(),
         email: doctorDetails.email,
         roles: UserRole.DOCTOR,
       };
@@ -104,7 +104,7 @@ class AuthController {
       }
 
       const payload = {
-        userId: doctorDetails._id.toString(),
+        id: doctorDetails._id.toString(),
         email: doctorDetails.email,
         roles: UserRole.DOCTOR,
       };
@@ -165,7 +165,7 @@ class AuthController {
       }
 
       const payload = {
-        userId: patientDetails._id.toString(),
+        id: patientDetails._id.toString(),
         email: patientDetails.email,
         roles: UserRole.PATIENT,
       };
@@ -222,7 +222,7 @@ class AuthController {
       }
 
       const payload = {
-        userId: patientDetails._id.toString(),
+        id: patientDetails._id.toString(),
         email: patientDetails.email,
         roles: UserRole.PATIENT,
       };
