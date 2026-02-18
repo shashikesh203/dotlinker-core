@@ -10,7 +10,7 @@ import PatientModel from "../../model/patientModel";
 
 class AuthController {
   doctorSignUp: RequestHandler = async (req, res, next) => {
-    const { name, email, password, specialization, description } = req.body;
+    const { email, password } = req.body;
 
     try {
       let doctorDetails = await DoctorModel.findOne({
@@ -24,11 +24,8 @@ class AuthController {
           config.commonConfig.saltRounds,
         );
         doctorDetails = await DoctorModel.create({
-          name: name,
-          email: email,
+          ...req.body,
           password: hashPassword,
-          specialization: specialization,
-          description: description,
           doctor_profile: req.file ? req.file.filename : undefined,
         });
       } else {

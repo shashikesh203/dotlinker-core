@@ -6,6 +6,8 @@ export interface IDoctor extends Document {
   password: string;
   isDeleted: boolean;
   specialization: string;
+  startTime: string;
+  endTime: string;
   description: string;
   doctor_profile: string;
 }
@@ -16,6 +18,8 @@ const DoctorSchema: Schema = new Schema(
     email: { type: String, unique: true },
     password: { type: String },
     isDeleted: { type: Boolean, default: false },
+    startTime: { type: String },
+    endTime: { type: String },
     specialization: { type: String },
     description: { type: String },
     doctor_profile: { type: String },
