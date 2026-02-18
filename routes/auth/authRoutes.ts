@@ -5,5 +5,6 @@ import upload from "../../src/middleware/uploadImage";
 const doctorRoute = express.Router();
 
 doctorRoute.post("/doctor-signup", upload.single("doctor_profile"), authController.doctorSignUp);
+doctorRoute.post("/doctor-signin", authController.doctorSignIn);
 
 export default doctorRoute;
