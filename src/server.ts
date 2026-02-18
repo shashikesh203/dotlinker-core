@@ -5,10 +5,10 @@ import express from 'express';
 import cors from 'cors';
 import config from './config';
 import connectToMongoDB from './lib/mongoose';
-import router from '../routes';
 import { errorHandler } from './middleware/errorHandler';
 import { loggerMiddleware } from './middleware/loggerMiddleware';
 import path from 'path';
+import router from './routes';
 
 
 const app = express();

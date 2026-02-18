@@ -1,6 +1,6 @@
 import express from "express";
-import authController from "../../src/controller/auth/authController";
-import upload from "../../src/middleware/uploadImage";
+import authController from "../../controller/auth/authController";
+import upload from "../../middleware/uploadImage";
 
 const doctorRoute = express.Router();
 
