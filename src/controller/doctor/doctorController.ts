@@ -39,12 +39,26 @@ class DoctorController {
             patientDetails: {
               name: 1,
               age: 1,
+              gender: 1,
+              patient_profile: {
+                $cond: {
+                  if: { $ifNull: ["$patientDetails.patient_profile", false] },
+                  then: {
+                    $concat: [
+                      `http://localhost:${config.commonConfig.port}`,
+                      "/uploads/",
+                      "$patientDetails.patient_profile",
+                    ],
+                  },
+                  else: null,
+                },
+              },
             },
           },
         },
         { $sort: { createdAt: -1 } },
-            { $skip: skip },
-            { $limit: limit },
+        { $skip: skip },
+        { $limit: limit },
       ]);
 
       const totalAppointments = await AppointmentModel.countDocuments({
@@ -78,10 +92,10 @@ class DoctorController {
     try {
       const doctorId = req.users?.id;
       const appointmentId = req.params.id;
-      const { status } = req.body;  
+      const { status } = req.body;
       const appointmentDetail = await AppointmentModel.findById(appointmentId);
 
-      if(appointmentDetail.status === AppointmentStatus.CANCELLED){
+      if (appointmentDetail.status === AppointmentStatus.CANCELLED) {
         return next(
           new CustomError(
             "Cancelled appointments cannot be updated",
@@ -89,24 +103,32 @@ class DoctorController {
           ),
         );
       }
-      if([AppointmentStatus.APPROVED, AppointmentStatus.REJECTED].includes(status) && appointmentDetail?.status !== AppointmentStatus.PENDING){
+      if (
+        [AppointmentStatus.APPROVED, AppointmentStatus.REJECTED].includes(
+          status,
+        ) &&
+        appointmentDetail?.status !== AppointmentStatus.PENDING
+      ) {
         return next(
           new CustomError(
             "Only pending appointments can be updated",
             HttpStatusCode.BadRequest,
           ),
         );
-
       }
 
-      if([AppointmentStatus.APPROVED, AppointmentStatus.REJECTED].includes(status) && appointmentDetail?.status === AppointmentStatus.COMPLETED){
+      if (
+        [AppointmentStatus.APPROVED, AppointmentStatus.REJECTED].includes(
+          status,
+        ) &&
+        appointmentDetail?.status === AppointmentStatus.COMPLETED
+      ) {
         return next(
           new CustomError(
             "Completed appointments cannot be updated",
             HttpStatusCode.BadRequest,
           ),
         );
-
       }
 
       const appointment = await AppointmentModel.findByIdAndUpdate(

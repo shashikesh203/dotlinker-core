@@ -147,6 +147,19 @@ class PatientController {
               specialization: 1,
               startTime: 1,
               endTime: 1,
+              doctor_profile: {
+                $cond: {
+                  if: { $ifNull: ["$doctorDetails.doctor_profile", false] },
+                  then: {
+                    $concat: [
+                      `http://localhost:${config.commonConfig.port}`,
+                      "/uploads/",
+                      "$doctorDetails.doctor_profile",
+                    ],
+                  },
+                  else: null,
+                },
+              },
             },
           },
         },
@@ -187,9 +200,9 @@ class PatientController {
       const patientId = req.users?.id;
       const appointmentId = req.params.id;
 
-      const appointment = await AppointmentModel.findByIdAndUpdate(
+      const appointment = await AppointmentModel.findOneAndUpdate(
         {
-          appointmentId,
+          _id: new Types.ObjectId(appointmentId),
           patientId: new Types.ObjectId(patientId),
           status: { $eq: AppointmentStatus.PENDING },
         },
@@ -212,6 +225,7 @@ class PatientController {
         data: appointment,
       });
     } catch (error) {
+      console.error("Error cancelling appointment:", error);
       next(
         new CustomError(
           "Unable to cancel appointment",
