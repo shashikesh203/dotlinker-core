@@ -59,7 +59,7 @@ class AuthController {
         message: "Doctor signed up successfully!",
       });
     } catch (error: any) {
-      next(new CustomError("invalid credentials", HttpStatusCode.Unauthorized));
+      next(new CustomError("Something went wrong", HttpStatusCode.InternalServerError));
     }
   };
 
@@ -126,8 +126,7 @@ class AuthController {
   };
 
   patientSignUp: RequestHandler = async (req, res, next) => {
-    const { name, email, age, password } = req.body;
-
+    const { name, email, age, password, gender } = req.body;    
     try {
       let patientDetails = await PatientModel.findOne({
         email: email,
@@ -144,6 +143,7 @@ class AuthController {
           email: email,
           age: age,
           password: hashPassword,
+          gender: gender,
           patient_profile: req.file ? req.file.filename : undefined,
         });
       } else {

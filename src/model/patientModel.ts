@@ -5,6 +5,7 @@ export interface IPatient extends Document {
   email: string;
   age?: number;
   password: string;
+  gender?: string;
   patient_profile?: string;
   isDeleted: boolean;
 }
@@ -21,7 +22,11 @@ const PatientSchema = new Schema(
     age: {
       type: Number,
     },
+   
     password: {
+      type: String,
+    },
+     gender: {
       type: String,
     },
     patient_profile: {
