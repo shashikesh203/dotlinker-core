@@ -44,7 +44,7 @@ export  function isPatient(
     next();
   } catch (error) {
     console.log("JWT Error:", error);
-    return res.status(HttpStatusCode.Unauthorized).json({
+    return res.status(HttpStatusCode.Forbidden).json({
       message: "Invalid or expired token",
       success: false,
     });

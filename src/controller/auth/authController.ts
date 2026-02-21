@@ -98,7 +98,7 @@ class AuthController {
         return next(
           new CustomError(
             "Invalid email or password",
-            HttpStatusCode.Unauthorized,
+            HttpStatusCode.BadRequest,
           ),
         );
       }
@@ -216,7 +216,7 @@ class AuthController {
         return next(
           new CustomError(
             "Invalid email or password",
-            HttpStatusCode.Unauthorized,
+            HttpStatusCode.BadRequest,
           ),
         );
       }
