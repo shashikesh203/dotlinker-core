@@ -10,3 +10,11 @@ export enum AppointmentStatus {
     CANCELLED = 'CANCELLED', 
     COMPLETED = 'COMPLETED' // doctor only
 }
+
+export enum PayloadType {
+    BODY = 'body',
+    QUERY = 'query',
+    PARAMS = 'params',
+    FILE = 'file',
+    FILES = 'files'
+}

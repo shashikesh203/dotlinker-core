@@ -2,6 +2,9 @@ import express from "express";
 import patientController from "../../controller/patient/patientController";
 import authorization from "../../middleware/authValidator";
 import { isPatient } from "../../middleware/roleValidator";
+import { validateRequest } from "../../middleware/requestvalidator";
+import { getAppointmentSchema } from "../../validator/getAppointmentSchema";
+import { PayloadType } from "../../utils/enum/common.enum";
 
 const patientRoute = express.Router();
 
@@ -20,6 +23,7 @@ patientRoute.post(
 patientRoute.get(
   "/get-patient-appointments",
   authorization,
+  validateRequest({schema: getAppointmentSchema, type: PayloadType.QUERY}),
   patientController.getMyAppointments,
 );
 patientRoute.post(
