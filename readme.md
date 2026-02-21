@@ -18,6 +18,8 @@ git clone git@github.com:shashikesh203/dotlinker-core.git
                      or
 git clone https://github.com/shashikesh203/dotlinker-core.git
 
+git checkout dev (Switch to dev branch)
+
 cd dotlinker-core
 
 open repo in any editor
